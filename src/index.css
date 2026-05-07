@@ -65,9 +65,7 @@
 .hero-wrapper {
   position: relative;
   width: 100%;
-  height: 100vh;
-  min-height: 100vh;
-  overflow: hidden;
+  /* height controlled by GSAP scroll-wrapper via inline style (300vh) */
 }
 
 .hero-bg {
@@ -78,11 +76,12 @@
 
 .hero-bg-slide {
   position: absolute;
-  inset: -40px;
+  inset: -20px;
   background-size: cover;
   background-position: center;
-  filter: blur(18px) brightness(0.55) saturate(1.2);
-  transform: scale(1.1);
+  /* 降低模糊度：blur(6px) 讓背景更清晰 */
+  filter: blur(6px) brightness(0.50) saturate(1.15);
+  transform: scale(1.05);
   transition: opacity 1.2s ease-in-out;
   will-change: opacity;
 }
@@ -99,6 +98,39 @@
   position: relative;
   z-index: 10;
   height: 100%;
+}
+
+/* GSAP Sticky Hero Container */
+.hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* GSAP 滾動放大目標 — GPU 加速 */
+.hero-scroll-target {
+  will-change: transform, opacity;
+  transform-origin: center center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 1rem;
+  /* 確保放大時不超出 */
+  max-width: 100vw;
+}
+
+/* 文字陰影增強可讀性 */
+.hero-text-shadow {
+  text-shadow:
+    0 2px 20px rgba(0,0,0,0.8),
+    0 0 60px rgba(0,0,0,0.5);
 }
 
 /* ============================================

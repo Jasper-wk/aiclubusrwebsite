@@ -1,79 +1,289 @@
-const STORES = [
-  { id: 1, name: '忠義號', category: '傳統美食' },
-  { id: 2, name: '川業肉圓', category: '在地小吃' },
-  { id: 3, name: '二和珍傳統餅鋪', category: '傳統糕點' },
-  { id: 4, name: '雲水食堂', category: '健康料理' },
-  { id: 5, name: 'CURA PIZZA', category: '創意餐飲' },
-  { id: 6, name: '坐坐吧', category: '休閒飲食' },
-  { id: 7, name: '上官木桶和牛海鮮火鍋', category: '精緻火鍋' },
-  { id: 8, name: '布田食品 艋舺老爐火花生糖', category: '傳統糖果' },
-  { id: 9, name: '一肥仔', category: '在地美食' },
-  { id: 10, name: '一鑫鵝肉', category: '傳統料理' },
-  { id: 11, name: '家辣麻辣鴨血', category: '特色小吃' },
-  { id: 12, name: '唯星蛋糕', category: '甜點烘焙' },
-]
+import { useState } from 'react'
+import { X, MapPin, ChevronLeft, ChevronRight } from 'lucide-react'
+import { STORES_DATA, CATEGORY_COLORS, type Store } from '../data/stores'
 
-const CATEGORY_COLORS: Record<string, string> = {
-  '傳統美食': 'bg-orange-100 text-orange-700',
-  '在地小吃': 'bg-red-100 text-red-700',
-  '傳統糕點': 'bg-yellow-100 text-yellow-800',
-  '健康料理': 'bg-green-100 text-green-700',
-  '創意餐飲': 'bg-purple-100 text-purple-700',
-  '休閒飲食': 'bg-blue-100 text-blue-700',
-  '精緻火鍋': 'bg-rose-100 text-rose-700',
-  '傳統糖果': 'bg-amber-100 text-amber-700',
-  '在地美食': 'bg-teal-100 text-teal-700',
-  '傳統料理': 'bg-indigo-100 text-indigo-700',
-  '特色小吃': 'bg-pink-100 text-pink-700',
-  '甜點烘焙': 'bg-fuchsia-100 text-fuchsia-700',
+const PLACEHOLDER = '/aiclubusrwebsite/images/placeholder-store.jpg'
+
+// ── 照片輪播元件 ──────────────────────────────────────────
+function PhotoCarousel({ photos, name }: { photos: string[]; name: string }) {
+  const [idx, setIdx] = useState(0)
+
+  const prev = () => setIdx((i) => (i - 1 + photos.length) % photos.length)
+  const next = () => setIdx((i) => (i + 1) % photos.length)
+
+  return (
+    <div className="relative w-full aspect-video bg-gray-100 rounded-2xl overflow-hidden select-none group">
+      <img
+        src={photos[idx]}
+        alt={`${name} 照片 ${idx + 1}`}
+        className="w-full h-full object-cover transition-opacity duration-300"
+        onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER }}
+      />
+
+      {/* 左右箭頭 */}
+      <button
+        onClick={prev}
+        className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full
+                   bg-black/40 text-white opacity-0 group-hover:opacity-100
+                   transition-opacity hover:bg-black/60"
+      >
+        <ChevronLeft className="w-5 h-5" />
+      </button>
+      <button
+        onClick={next}
+        className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full
+                   bg-black/40 text-white opacity-0 group-hover:opacity-100
+                   transition-opacity hover:bg-black/60"
+      >
+        <ChevronRight className="w-5 h-5" />
+      </button>
+
+      {/* 圓點指示器 */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+        {photos.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIdx(i)}
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              i === idx ? 'w-5 bg-white' : 'w-1.5 bg-white/50'
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* 照片計數 */}
+      <div className="absolute top-3 right-3 px-2 py-0.5 bg-black/40 rounded-full
+                      text-white text-xs font-medium">
+        {idx + 1} / {photos.length}
+      </div>
+    </div>
+  )
 }
 
-export default function StoresSection() {
+// ── 店家 Modal ────────────────────────────────────────────
+function StoreModal({ store, onClose }: { store: Store; onClose: () => void }) {
+  const catColor = CATEGORY_COLORS[store.category] ?? 'bg-gray-100 text-gray-600'
+
   return (
-    <section id="stores" className="py-28 px-4 bg-bg-warm">
-      <div className="max-w-6xl mx-auto">
-        <div className="section-label text-secondary/60 text-xs tracking-[0.4em] uppercase scroll-anim mb-2">
-          Partner Stores
-        </div>
-        <h2 className="text-4xl md:text-5xl font-thin text-center text-gray-900 mb-4 scroll-scale">
-          合作<span className="font-semibold text-secondary">店家</span>
-        </h2>
-        <p className="text-center text-gray-500 max-w-xl mx-auto mb-6 scroll-anim font-light leading-relaxed">
-          本次競賽設有 12 家合作店家，每隊需從名單中挑選一家作為提案對象，設計完整行銷企劃案。
-        </p>
-        <div className="text-center mb-16 scroll-anim">
-          <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary/10 text-secondary text-sm font-medium border border-secondary/20">
-            <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-            每隊選擇 1 家店進行提案
-          </span>
+    <div
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      {/* 背景遮罩 */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+
+      {/* Modal 容器 */}
+      <div
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto
+                   bg-white rounded-3xl shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* 關閉按鈕 */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-gray-100
+                     hover:bg-gray-200 transition-colors text-gray-600"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        {/* 照片輪播 */}
+        <div className="p-4 pb-0">
+          <PhotoCarousel photos={store.photos} name={store.name} />
         </div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {STORES.map((store, i) => (
-            <div
-              key={store.id}
-              className={`scroll-anim stagger-${Math.min(i + 1, 6)} card-hover matte-glass p-5 rounded-2xl group cursor-default`}
-            >
-              <div className="flex items-start justify-between mb-3">
-                <span className="text-3xl font-thin text-gray-200 leading-none">
-                  {String(store.id).padStart(2, '0')}
-                </span>
-                <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${CATEGORY_COLORS[store.category]}`}>
-                  {store.category}
-                </span>
-              </div>
-              <h3 className="text-gray-800 font-medium leading-snug group-hover:text-secondary transition-colors">
-                {store.name}
-              </h3>
-              <div className="mt-4 h-0.5 w-0 bg-secondary rounded-full group-hover:w-full transition-all duration-500" />
+        {/* 內容 */}
+        <div className="p-6">
+          {/* 標頭 */}
+          <div className="flex items-start gap-4 mb-4">
+            {/* Logo */}
+            <div className="w-16 h-16 rounded-2xl overflow-hidden border border-gray-100 shrink-0 bg-gray-50 flex items-center justify-center">
+              <img
+                src={store.logo}
+                alt={`${store.name} Logo`}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  const t = e.target as HTMLImageElement
+                  t.style.display = 'none'
+                  t.parentElement!.innerHTML =
+                    `<span class="text-2xl font-bold text-gray-300">${store.name[0]}</span>`
+                }}
+              />
             </div>
-          ))}
-        </div>
+            <div className="flex-1">
+              <span className={`inline-block text-xs font-medium px-2.5 py-1 rounded-full mb-1.5 ${catColor}`}>
+                {store.category}
+              </span>
+              <h2 className="text-2xl font-semibold text-gray-900">{store.name}</h2>
+              {store.address && (
+                <div className="flex items-center gap-1.5 mt-1 text-gray-500 text-sm">
+                  <MapPin className="w-3.5 h-3.5 shrink-0" />
+                  <span>{store.address}</span>
+                </div>
+              )}
+            </div>
+          </div>
 
-        <p className="text-center text-gray-400 text-sm mt-10 scroll-anim font-light">
-          ＊每家店只可由一隊參賽者提案，請提早確認選定店家。
-        </p>
+          {/* 標籤 */}
+          <div className="flex flex-wrap gap-2 mb-4">
+            {store.tags.map((tag) => (
+              <span key={tag} className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+                #{tag}
+              </span>
+            ))}
+          </div>
+
+          {/* 店家簡介 */}
+          <div className="mb-5">
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">
+              店家介紹
+            </h3>
+            <p className="text-gray-700 leading-relaxed font-light text-sm">
+              {store.description}
+            </p>
+          </div>
+
+          {/* 招牌品項 */}
+          <div>
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">
+              招牌品項
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {store.specialties.map((s) => (
+                <span
+                  key={s}
+                  className="px-3 py-1.5 bg-primary/8 text-primary text-xs rounded-xl font-medium border border-primary/15"
+                >
+                  ✦ {s}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
+  )
+}
+
+// ── 店家卡片 ──────────────────────────────────────────────
+function StoreCard({ store, index, onClick }: { store: Store; index: number; onClick: () => void }) {
+  const catColor = CATEGORY_COLORS[store.category] ?? 'bg-gray-100 text-gray-600'
+
+  return (
+    <button
+      onClick={onClick}
+      className={`scroll-anim stagger-${Math.min(index + 1, 6)}
+                  w-full text-left card-hover matte-glass rounded-2xl
+                  overflow-hidden group focus:outline-none focus:ring-2 focus:ring-primary/40`}
+    >
+      {/* 縮圖 */}
+      <div className="relative aspect-video bg-gray-100 overflow-hidden">
+        <img
+          src={store.photos[0]}
+          alt={store.name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER }}
+        />
+        {/* Logo 角標 */}
+        <div className="absolute bottom-2 left-2 w-9 h-9 rounded-xl overflow-hidden
+                        border-2 border-white shadow-md bg-white">
+          <img
+            src={store.logo}
+            alt=""
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              const t = e.target as HTMLImageElement
+              t.style.display = 'none'
+            }}
+          />
+        </div>
+        {/* 序號 */}
+        <div className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/40 text-white
+                        text-xs font-semibold flex items-center justify-center">
+          {String(index + 1).padStart(2, '0')}
+        </div>
+      </div>
+
+      {/* 文字資訊 */}
+      <div className="p-4">
+        <div className="flex items-center justify-between mb-1.5">
+          <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${catColor}`}>
+            {store.category}
+          </span>
+          <span className="text-xs text-gray-400">查看詳情 →</span>
+        </div>
+        <h3 className="font-semibold text-gray-800 group-hover:text-secondary transition-colors leading-snug">
+          {store.name}
+        </h3>
+        <p className="text-xs text-gray-500 mt-1 line-clamp-2 font-light leading-relaxed">
+          {store.description.slice(0, 55)}…
+        </p>
+        {/* 底部高亮線 */}
+        <div className="mt-3 h-0.5 w-0 bg-secondary rounded-full group-hover:w-full transition-all duration-500" />
+      </div>
+    </button>
+  )
+}
+
+// ── 主 Section ────────────────────────────────────────────
+export default function StoresSection() {
+  const [selectedStore, setSelectedStore] = useState<Store | null>(null)
+
+  return (
+    <>
+      <section id="stores" className="py-28 px-4 bg-bg-warm">
+        <div className="max-w-6xl mx-auto">
+          {/* Section Header */}
+          <div className="section-label text-secondary/60 text-xs tracking-[0.4em] uppercase scroll-anim mb-2">
+            Partner Stores
+          </div>
+          <h2 className="text-4xl md:text-5xl font-thin text-center text-gray-900 mb-4 scroll-scale">
+            合作<span className="font-semibold text-secondary">店家</span>
+          </h2>
+          <p className="text-center text-gray-500 max-w-xl mx-auto mb-5 scroll-anim font-light leading-relaxed">
+            本次競賽設有 12 家合作店家，每隊需從名單中挑選一家作為提案對象，設計完整行銷企劃案。
+          </p>
+          <div className="text-center mb-16 scroll-anim">
+            <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full
+                             bg-secondary/10 text-secondary text-sm font-medium border border-secondary/20">
+              <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+              點擊卡片查看詳細資訊・每隊選擇 1 家店進行提案
+            </span>
+          </div>
+
+          {/* Store Grid */}
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+            {STORES_DATA.map((store, i) => (
+              <StoreCard
+                key={store.id}
+                store={store}
+                index={i}
+                onClick={() => setSelectedStore(store)}
+              />
+            ))}
+          </div>
+
+          {/* 圖片替換說明 */}
+          <div className="mt-12 scroll-anim">
+            <div className="p-5 rounded-2xl bg-blue-50 border border-blue-100 text-center">
+              <p className="text-blue-700 text-sm font-medium mb-1">📁 圖片替換說明</p>
+              <p className="text-blue-600/80 text-xs font-light">
+                將店家圖片放入 <code className="bg-blue-100 px-1.5 py-0.5 rounded text-xs">public/images/stores/&lt;店家ID&gt;/</code> 資料夾
+                <br />命名為 <code className="bg-blue-100 px-1.5 py-0.5 rounded text-xs">logo.jpg</code>、<code className="bg-blue-100 px-1.5 py-0.5 rounded text-xs">photo-1.jpg</code> ～ <code className="bg-blue-100 px-1.5 py-0.5 rounded text-xs">photo-5.jpg</code> 即可自動套用
+              </p>
+            </div>
+          </div>
+
+          <p className="text-center text-gray-400 text-sm mt-6 scroll-anim font-light">
+            ＊每家店只可由一隊參賽者提案，請提早確認選定店家。
+          </p>
+        </div>
+      </section>
+
+      {/* Store Detail Modal */}
+      {selectedStore && (
+        <StoreModal store={selectedStore} onClose={() => setSelectedStore(null)} />
+      )}
+    </>
   )
 }

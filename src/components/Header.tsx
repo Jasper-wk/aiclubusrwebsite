@@ -18,15 +18,21 @@ function scrollToSection(id: string) {
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [collapsed, setCollapsed] = useState(false)
-  const [lastY, setLastY] = useState(0)
+  const [scrolled, setScrolled]     = useState(false)
+  const [collapsed, setCollapsed]   = useState(false)
+  const [lastY, setLastY]           = useState(0)
+  // 是否正在 Hero 區域（300vh）—— 決定文字要顯示白色
+  const [onHero, setOnHero]         = useState(true)
 
   useEffect(() => {
     const handleScroll = () => {
       const y = window.scrollY
+      const vh = window.innerHeight
+
       setScrolled(y > 50)
-      // Auto-hide on scroll down, show on scroll up
+      // Hero 佔 300vh，在這段範圍內文字保持白色
+      setOnHero(y < vh * 2.5)
+      // 向下滾且超過 200px 時收起；向上時顯示
       if (y > lastY && y > 200) {
         setCollapsed(true)
       } else {
@@ -48,6 +54,16 @@ export default function Header() {
     scrollToSection(id)
   }
 
+  // ── 動態 class 邏輯 ───────────────────────────────────
+  // 在 Hero 頂部：透明背景 + 白色文字
+  // 滾動後：matte-glass（霧面玻璃）+ 深色文字
+  const navTextClass   = onHero ? 'text-white/90 hover:text-white' : 'text-gray-700 hover:text-primary'
+  const logoTextClass  = onHero ? 'text-white/90' : 'text-gray-800'
+  const menuIconClass  = onHero ? 'text-white/90' : 'text-gray-700'
+  const containerClass = onHero && !scrolled
+    ? 'bg-transparent border-transparent shadow-none'
+    : 'matte-glass shadow-lg shadow-black/10'
+
   return (
     <>
       <header
@@ -57,9 +73,7 @@ export default function Header() {
       >
         <div className="mx-3 mt-3 md:mx-auto md:max-w-6xl">
           <div
-            className={`matte-glass rounded-2xl transition-shadow duration-300 ${
-              scrolled ? 'shadow-lg shadow-black/10' : ''
-            }`}
+            className={`rounded-2xl transition-all duration-300 ${containerClass}`}
           >
             <div className="px-5 h-16 flex items-center justify-between">
               {/* Logo */}
@@ -70,9 +84,11 @@ export default function Header() {
                 <img
                   src="/aiclubusrwebsite/logo.jpg"
                   alt="艋舺ESG競賽"
-                  className="h-10 w-10 rounded-full object-cover"
+                  className={`h-10 w-10 rounded-full object-cover transition-all duration-300 ${
+                    onHero ? 'ring-2 ring-white/30' : ''
+                  }`}
                 />
-                <span className="hidden sm:block text-sm font-medium text-gray-800 tracking-wide">
+                <span className={`hidden sm:block text-sm font-medium tracking-wide transition-colors duration-300 ${logoTextClass}`}>
                   艋舺ESG競賽
                 </span>
               </button>
@@ -83,7 +99,11 @@ export default function Header() {
                   <button
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
-                    className="px-3 py-2 text-sm font-light text-gray-700 hover:text-primary transition-colors rounded-xl hover:bg-primary/5 tracking-wide"
+                    className={`px-3 py-2 text-sm font-light transition-all duration-300 rounded-xl tracking-wide
+                      ${onHero
+                        ? 'text-white/85 hover:text-white hover:bg-white/10'
+                        : 'text-gray-700 hover:text-primary hover:bg-primary/5'
+                      }`}
                   >
                     {item.label}
                   </button>
@@ -99,7 +119,7 @@ export default function Header() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setMobileOpen(true)}
-                className="lg:hidden p-2 text-gray-700 hover:text-gray-900 transition-colors"
+                className={`lg:hidden p-2 transition-colors duration-300 ${menuIconClass}`}
                 aria-label="開啟選單"
               >
                 <Menu className="w-6 h-6" />
@@ -116,7 +136,7 @@ export default function Header() {
         }`}
       >
         <div
-          className="absolute inset-0 bg-black/30 backdrop-blur-sm"
+          className="absolute inset-0 bg-black/40 backdrop-blur-sm"
           onClick={() => setMobileOpen(false)}
         />
         <div
