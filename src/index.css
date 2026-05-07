@@ -1,0 +1,299 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   Base Styles
+   ============================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-color: #FAF8F5;
+    color: #1a1a1a;
+    overflow-x: hidden;
+  }
+}
+
+/* ============================================
+   CSS Design Tokens
+   ============================================ */
+:root {
+  --color-primary: #2D7D46;
+  --color-primary-light: #3A9A58;
+  --color-primary-dark: #1E5C32;
+  --color-secondary: #C4713B;
+  --color-accent: #F5C542;
+  --color-bg-warm: #FAF8F5;
+  --color-bg-dark: #0A0A0A;
+
+  /* Matte Glass */
+  --frosted-bg: rgba(255, 255, 255, 0.80);
+  --frosted-border: 1px solid rgba(255, 255, 255, 0.65);
+  --frosted-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.06), 0 0 1px 0 rgba(0, 0, 0, 0.08);
+  --backdrop-blur: blur(20px) saturate(180%);
+}
+
+/* ============================================
+   Matte Glass System (from Cubeline)
+   ============================================ */
+.matte-glass {
+  background: var(--frosted-bg);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: var(--frosted-border);
+  box-shadow: var(--frosted-shadow);
+}
+
+.matte-glass-dark {
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================
+   Hero Background Blur System
+   ============================================ */
+.hero-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg-slide {
+  position: absolute;
+  inset: -40px;
+  background-size: cover;
+  background-position: center;
+  filter: blur(18px) brightness(0.55) saturate(1.2);
+  transform: scale(1.1);
+  transition: opacity 1.2s ease-in-out;
+  will-change: opacity;
+}
+
+.hero-bg-slide.active {
+  opacity: 1;
+}
+
+.hero-bg-slide.inactive {
+  opacity: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+}
+
+/* ============================================
+   Apple-style Scroll Animation System
+   ============================================ */
+
+/* Base state: elements start hidden/scaled */
+.scroll-anim {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-anim.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Scale-only variant (for large headlines) */
+.scroll-scale {
+  opacity: 0;
+  transform: scale(0.82);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Slide from left */
+.scroll-anim-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-anim-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slide from right */
+.scroll-anim-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-anim-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger delays for children */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+.stagger-6 { transition-delay: 0.6s; }
+
+/* ============================================
+   Hero Text Animations
+   ============================================ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounceArrow {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-bounce-arrow {
+  animation: bounceArrow 2s ease-in-out infinite;
+}
+
+/* ============================================
+   Card Hover Effects
+   ============================================ */
+.card-hover {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.4s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+   Timeline
+   ============================================ */
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, #2D7D46 10%, #2D7D46 90%, transparent);
+  transform: translateX(-50%);
+}
+
+/* ============================================
+   Section Dividers
+   ============================================ */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.section-label::before,
+.section-label::after {
+  content: '';
+  height: 1px;
+  width: 3rem;
+  background: currentColor;
+  opacity: 0.3;
+}
+
+/* ============================================
+   ESG Score Bars
+   ============================================ */
+.score-bar-track {
+  height: 8px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.score-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.score-bar-fill.is-visible {
+  transform: scaleX(1);
+}
+
+/* ============================================
+   Gradient Backgrounds
+   ============================================ */
+.bg-esg-gradient {
+  background: linear-gradient(135deg, #1E5C32 0%, #2D7D46 40%, #3A9A58 100%);
+}
+
+.bg-warm-gradient {
+  background: linear-gradient(135deg, #FAF8F5 0%, #F5EDE0 100%);
+}
+
+.bg-prize-gradient {
+  background: linear-gradient(135deg, #0A0A0A 0%, #1a2a1a 50%, #0A0A0A 100%);
+}
+
+/* ============================================
+   Mobile responsive scrollbar
+   ============================================ */
+@media (max-width: 768px) {
+  .timeline-line {
+    left: 1.5rem;
+  }
+}
