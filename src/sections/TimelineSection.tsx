@@ -11,7 +11,7 @@ const MILESTONES = [
 
 export default function TimelineSection() {
   return (
-    <section id="timeline" className="py-32 px-4 bg-bg-warm">
+    <section id="timeline" className="py-20 md:py-32 px-4 bg-bg-warm">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-20">
           <div className="section-label text-primary/60 text-xs tracking-[0.4em] uppercase scroll-anim mb-4">
@@ -21,7 +21,7 @@ export default function TimelineSection() {
             text="重要時程"
             highlight="時程"
             highlightClass="text-primary"
-            className="text-5xl md:text-6xl font-black text-gray-900 tracking-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight"
           />
           <p className="mt-6 text-gray-500 max-w-xl mx-auto scroll-anim font-medium">
             競賽流程與關鍵截止日期一覽

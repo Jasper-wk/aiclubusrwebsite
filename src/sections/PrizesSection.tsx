@@ -12,7 +12,7 @@ const HS_AMOUNTS    = ['10,000', '6,000',  '3,000', '1,000']
 
 export default function PrizesSection() {
   return (
-    <section id="prizes" className="py-32 px-4 bg-prize-gradient">
+    <section id="prizes" className="py-20 md:py-32 px-4 bg-prize-gradient">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-20">
           <div className="section-label text-white/35 text-xs tracking-[0.4em] uppercase scroll-anim mb-4">
@@ -23,7 +23,7 @@ export default function PrizesSection() {
             highlight="資訊"
             highlightClass="text-accent"
             as="h2"
-            className="text-5xl md:text-6xl font-black text-white tracking-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight"
           />
           <p className="mt-6 text-white/50 max-w-xl mx-auto scroll-anim font-medium">
             若未達得獎標準得從缺。完整繳交決賽資料之隊伍，每位隊員及指導老師皆致贈活動紀念品。

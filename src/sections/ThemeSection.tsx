@@ -61,7 +61,7 @@ const THEMES = [
 
 export default function ThemeSection() {
   return (
-    <section id="theme" className="py-32 px-4 bg-white">
+    <section id="theme" className="py-20 md:py-32 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
@@ -73,7 +73,7 @@ export default function ThemeSection() {
             text="競賽主題"
             highlight="主題"
             highlightClass="text-primary"
-            className="text-5xl md:text-6xl font-black text-gray-900 tracking-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight"
           />
         </div>
 

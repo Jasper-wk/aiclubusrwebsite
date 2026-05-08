@@ -36,7 +36,7 @@ const ESG_PILLARS = [
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-32 px-4 bg-bg-warm">
+    <section id="about" className="py-20 md:py-32 px-4 bg-bg-warm">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
@@ -48,7 +48,7 @@ export default function AboutSection() {
             text="活動緣起"
             highlight="緣起"
             highlightClass="text-primary"
-            className="text-5xl md:text-6xl font-black text-gray-900 tracking-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight"
           />
           <p className="mt-6 text-center text-gray-500 max-w-2xl mx-auto scroll-anim font-medium leading-relaxed">
             結合商學教育、ESG 理念與在地文化，推動萬華商圈永續轉型
@@ -86,7 +86,7 @@ export default function AboutSection() {
             </p>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 pt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4">
               {[
                 { num: '12', label: '合作店家' },
                 { num: '2–4', label: '參賽人數/隊' },

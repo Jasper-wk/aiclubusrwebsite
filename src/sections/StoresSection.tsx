@@ -232,7 +232,7 @@ export default function StoresSection() {
 
   return (
     <>
-      <section id="stores" className="py-28 px-4 bg-bg-warm">
+      <section id="stores" className="py-20 md:py-28 px-4 bg-bg-warm">
         <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
           <div className="section-label text-secondary/60 text-xs tracking-[0.4em] uppercase scroll-anim mb-4">

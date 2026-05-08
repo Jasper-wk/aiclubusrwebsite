@@ -10,6 +10,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
@@ -110,12 +111,12 @@
   justify-content: center;
 }
 
-/* ============================================
-   GSAP Scale Target — GPU Accelerated
-   NOTE: no max-width / overflow constraint.
-   Text uses white-space:nowrap so it expands
-   outward uniformly during scale animation.
-   ============================================ */
+/*
+ * GSAP Scale Target — GPU Accelerated
+ * No width constraint, no white-space clamp.
+ * Each <br /> in the headline handles line breaks explicitly.
+ * Mobile: text wraps naturally. md+: we apply whitespace-nowrap via Tailwind.
+ */
 .hero-scroll-target {
   will-change: transform, opacity;
   transform-origin: center center;
@@ -124,9 +125,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0 2rem;
-  /* white-space keeps single lines intact during zoom */
-  white-space: nowrap;
+  padding: 0 1.5rem;
 }
 
 /* 文字陰影增強可讀性 */
