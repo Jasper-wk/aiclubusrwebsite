@@ -34,39 +34,55 @@ export default function HeroSection() {
         const { isDesktop, isTablet } = context.conditions as {
           isDesktop: boolean; isTablet: boolean
         }
-        // Conservative scale values so text fades before any edge is reached
-        const scaleAmount = isDesktop ? 4.2 : isTablet ? 2.8 : 2.0
+
+        /*
+         * Scale values — must be conservative enough that text fades
+         * to opacity:0 BEFORE it visually hits the overflow:hidden boundary.
+         *
+         * Mobile  (390px vp): widest text line ~200px → overflow at ~1.9x
+         *   → fade finishes at 0.55 progress when scale ≈ 1.6x → safe ✓
+         * Tablet  (768px vp): widest line ~300px → overflow at ~2.5x
+         *   → scale 2.5, fade finishes at 0.55 → scale ≈ 2.0x at fade end → safe ✓
+         * Desktop (1280px vp): widest line ~400px → overflow at ~3.2x
+         *   → scale 3.2, fade finishes at 0.55 → scale ≈ 2.5x at fade end → safe ✓
+         */
+        const scaleAmount = isDesktop ? 3.2 : isTablet ? 2.5 : 1.8
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: wrapperRef.current,
             start: 'top top',
             end: 'bottom bottom',
-            scrub: 1.5,
+            scrub: 1,      // 1s lag — short enough to track without jumping ahead
           },
         })
 
-        // Chrome elements fade first
+        // 0–15%: Chrome UI (logo, arrow, buttons) fades out quickly
         tl.to([logoRef.current, arrowRef.current], {
-          opacity: 0, duration: 0.12, ease: 'power2.in',
+          opacity: 0, duration: 0.15, ease: 'power2.in',
         }, 0)
-
         tl.to(btnRef.current, {
-          opacity: 0, y: -8, duration: 0.12, ease: 'power2.in',
+          opacity: 0, y: -6, duration: 0.15, ease: 'power2.in',
         }, 0)
 
-        // Scale the headline block
+        // 8–75%: Headline scales up
         tl.fromTo(
           textRef.current,
           { scale: 1, opacity: 1 },
-          { scale: scaleAmount, opacity: 1, ease: 'none', duration: 0.65 },
+          { scale: scaleAmount, opacity: 1, ease: 'none', duration: 0.7 },
           0.08
         )
 
-        // Fade out early (45% progress) — well before any edge clipping
+        /*
+         * Fade starts at 30%, ends at 55%.
+         * At 30% progress, scale ≈ 1 + (scale-1) * (0.22/0.7) — always small.
+         * Text is fully transparent by 55% progress.
+         * This guarantees text vanishes well before it could be clipped.
+         * Remaining 45% of scroll: user sees the hero background (dark), no blank.
+         */
         tl.to(textRef.current, {
-          opacity: 0, ease: 'power2.in', duration: 0.3,
-        }, 0.45)
+          opacity: 0, ease: 'power1.in', duration: 0.25,
+        }, 0.30)
 
         return () => { tl.kill() }
       }
@@ -76,14 +92,20 @@ export default function HeroSection() {
   }, [])
 
   return (
+    /*
+     * 300vh wrapper — background:#000 (set in CSS) prevents
+     * white body from showing once sticky scrolls away.
+     */
     <section
       id="hero"
       ref={wrapperRef}
       className="hero-wrapper"
       style={{ height: '300vh' }}
     >
+      {/* 100vh sticky panel — overflow:hidden (set in CSS) prevents layout reflow */}
       <div className="hero-sticky">
-        {/* Background */}
+
+        {/* Background slides */}
         <div className="hero-bg absolute inset-0 z-0">
           {images.map((src, i) => (
             <div
@@ -112,13 +134,8 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* GSAP Scale Target */}
-          {/*
-           * md:whitespace-nowrap — on tablets & desktop, single lines don't break during zoom.
-           * On mobile (< md), text wraps naturally at narrow widths.
-           */}
-          <div ref={textRef} className="hero-scroll-target md:whitespace-nowrap">
-
+          {/* GSAP scale target */}
+          <div ref={textRef} className="hero-scroll-target">
             <div
               className="section-label text-white/50 text-[0.55rem] tracking-[0.5em] uppercase mb-2 animate-fade-in"
               style={{ animationDelay: '0.3s', opacity: 0, animationFillMode: 'forwards' }}
@@ -126,10 +143,6 @@ export default function HeroSection() {
               2026 競賽
             </div>
 
-            {/* Main headline
-                Mobile : text-3xl (36px)  — fits 320px+ screens
-                Tablet : text-5xl (48px)
-                Desktop: text-6xl (60px)  */}
             <h1
               className="hero-text-shadow text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black
                          text-white tracking-tight leading-[1.15] mb-3 animate-fade-in-up"
@@ -137,8 +150,7 @@ export default function HeroSection() {
             >
               艋舺商圈
               <br />
-              <span className="font-black bg-gradient-to-r from-emerald-300 to-green-400
-                               bg-clip-text text-transparent">
+              <span className="font-black bg-gradient-to-r from-emerald-300 to-green-400 bg-clip-text text-transparent">
                 ESG 永續消費
               </span>
               <br />
@@ -146,8 +158,8 @@ export default function HeroSection() {
             </h1>
 
             <p
-              className="hero-text-shadow text-xs sm:text-sm md:text-base text-white/75 max-w-sm md:max-w-lg mx-auto
-                         font-medium leading-relaxed animate-fade-in-up"
+              className="hero-text-shadow text-xs sm:text-sm md:text-base text-white/75
+                         max-w-sm md:max-w-lg mx-auto font-medium leading-relaxed animate-fade-in-up"
               style={{ animationDelay: '0.6s', opacity: 0, animationFillMode: 'forwards' }}
             >
               在地飲食文化與青銀友善・綠色飲食
