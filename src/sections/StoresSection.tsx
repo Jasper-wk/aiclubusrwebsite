@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { X, MapPin, ChevronLeft, ChevronRight } from 'lucide-react'
 import { STORES_DATA, CATEGORY_COLORS, type Store } from '../data/stores'
+import AnimatedTitle from '../components/AnimatedTitle'
 
 const PLACEHOLDER = '/aiclubusrwebsite/images/placeholder-store.jpg'
 
@@ -233,16 +234,20 @@ export default function StoresSection() {
     <>
       <section id="stores" className="py-28 px-4 bg-bg-warm">
         <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <div className="section-label text-secondary/60 text-xs tracking-[0.4em] uppercase scroll-anim mb-2">
+        <div className="text-center mb-8">
+          <div className="section-label text-secondary/60 text-xs tracking-[0.4em] uppercase scroll-anim mb-4">
             Partner Stores
           </div>
-          <h2 className="text-4xl md:text-5xl font-thin text-center text-gray-900 mb-4 scroll-scale">
-            合作<span className="font-semibold text-secondary">店家</span>
-          </h2>
-          <p className="text-center text-gray-500 max-w-xl mx-auto mb-5 scroll-anim font-light leading-relaxed">
+          <AnimatedTitle
+            text="合作店家"
+            highlight="店家"
+            highlightClass="text-secondary"
+            className="text-5xl md:text-6xl font-black text-gray-900 tracking-tight"
+          />
+          <p className="mt-6 text-center text-gray-500 max-w-xl mx-auto mb-5 scroll-anim font-medium leading-relaxed">
             本次競賽設有 12 家合作店家，每隊需從名單中挑選一家作為提案對象，設計完整行銷企劃案。
           </p>
+        </div>
           <div className="text-center mb-16 scroll-anim">
             <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full
                              bg-secondary/10 text-secondary text-sm font-medium border border-secondary/20">
@@ -261,17 +266,6 @@ export default function StoresSection() {
                 onClick={() => setSelectedStore(store)}
               />
             ))}
-          </div>
-
-          {/* 圖片替換說明 */}
-          <div className="mt-12 scroll-anim">
-            <div className="p-5 rounded-2xl bg-blue-50 border border-blue-100 text-center">
-              <p className="text-blue-700 text-sm font-medium mb-1">📁 圖片替換說明</p>
-              <p className="text-blue-600/80 text-xs font-light">
-                將店家圖片放入 <code className="bg-blue-100 px-1.5 py-0.5 rounded text-xs">public/images/stores/&lt;店家ID&gt;/</code> 資料夾
-                <br />命名為 <code className="bg-blue-100 px-1.5 py-0.5 rounded text-xs">logo.jpg</code>、<code className="bg-blue-100 px-1.5 py-0.5 rounded text-xs">photo-1.jpg</code> ～ <code className="bg-blue-100 px-1.5 py-0.5 rounded text-xs">photo-5.jpg</code> 即可自動套用
-              </p>
-            </div>
           </div>
 
           <p className="text-center text-gray-400 text-sm mt-6 scroll-anim font-light">
