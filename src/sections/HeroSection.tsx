@@ -36,28 +36,29 @@ export default function HeroSection() {
         }
 
         /*
-         * Scale values — must be conservative enough that text fades
-         * to opacity:0 BEFORE it visually hits the overflow:hidden boundary.
+         * Architecture: 200vh wrapper → sticky holds for 100vh of scroll.
+         * Animation fills the ENTIRE 100vh scroll distance — no dead zone.
          *
-         * Mobile  (390px vp): widest text line ~200px → overflow at ~1.9x
-         *   → fade finishes at 0.55 progress when scale ≈ 1.6x → safe ✓
-         * Tablet  (768px vp): widest line ~300px → overflow at ~2.5x
-         *   → scale 2.5, fade finishes at 0.55 → scale ≈ 2.0x at fade end → safe ✓
-         * Desktop (1280px vp): widest line ~400px → overflow at ~3.2x
-         *   → scale 3.2, fade finishes at 0.55 → scale ≈ 2.5x at fade end → safe ✓
+         * Timeline breakdown (0 → 1):
+         *  0.00 – 0.15 : Logo + arrow + buttons fade out
+         *  0.10 – 0.72 : Text scales up (1x → max)
+         *  0.65 – 1.00 : Text fades to opacity 0
+         *
+         * Scale is chosen so text reaches ~70% of viewport width at fade-end.
+         * At fade-end (progress=1.0), opacity=0 → never visually clipped.
          */
-        const scaleAmount = isDesktop ? 3.2 : isTablet ? 2.5 : 1.8
+        const scaleAmount = isDesktop ? 3.0 : isTablet ? 2.2 : 1.6
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: wrapperRef.current,
             start: 'top top',
-            end: 'bottom bottom',
-            scrub: 1,      // 1s lag — short enough to track without jumping ahead
+            end: 'bottom bottom',   // fires when wrapper-bottom hits viewport-bottom
+            scrub: 0.8,             // short lag → snappy, tracks user intent
           },
         })
 
-        // 0–15%: Chrome UI (logo, arrow, buttons) fades out quickly
+        // 0–15%: chrome UI (logo, arrow, buttons) fades first
         tl.to([logoRef.current, arrowRef.current], {
           opacity: 0, duration: 0.15, ease: 'power2.in',
         }, 0)
@@ -65,24 +66,19 @@ export default function HeroSection() {
           opacity: 0, y: -6, duration: 0.15, ease: 'power2.in',
         }, 0)
 
-        // 8–75%: Headline scales up
+        // 10–72%: headline block scales up
         tl.fromTo(
           textRef.current,
           { scale: 1, opacity: 1 },
-          { scale: scaleAmount, opacity: 1, ease: 'none', duration: 0.7 },
-          0.08
+          { scale: scaleAmount, ease: 'none', duration: 0.62 },
+          0.10
         )
 
-        /*
-         * Fade starts at 30%, ends at 55%.
-         * At 30% progress, scale ≈ 1 + (scale-1) * (0.22/0.7) — always small.
-         * Text is fully transparent by 55% progress.
-         * This guarantees text vanishes well before it could be clipped.
-         * Remaining 45% of scroll: user sees the hero background (dark), no blank.
-         */
+        // 65–100%: fade out — overlaps with final scale phase
+        // Text is never visible when it would overflow; opacity hits 0 at end
         tl.to(textRef.current, {
-          opacity: 0, ease: 'power1.in', duration: 0.25,
-        }, 0.30)
+          opacity: 0, ease: 'power1.in', duration: 0.35,
+        }, 0.65)
 
         return () => { tl.kill() }
       }
@@ -93,16 +89,16 @@ export default function HeroSection() {
 
   return (
     /*
-     * 300vh wrapper — background:#000 (set in CSS) prevents
-     * white body from showing once sticky scrolls away.
+     * 200vh = sticky holds for exactly 100vh of scrolling.
+     * No dead scroll zone — animation fills the entire range.
+     * background:#000 on both wrapper + sticky (set in CSS) prevents any white flash.
      */
     <section
       id="hero"
       ref={wrapperRef}
       className="hero-wrapper"
-      style={{ height: '300vh' }}
+      style={{ height: '200vh' }}
     >
-      {/* 100vh sticky panel — overflow:hidden (set in CSS) prevents layout reflow */}
       <div className="hero-sticky">
 
         {/* Background slides */}
