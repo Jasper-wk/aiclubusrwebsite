@@ -21,18 +21,11 @@ export default function Header() {
   const [scrolled, setScrolled]     = useState(false)
   const [collapsed, setCollapsed]   = useState(false)
   const [lastY, setLastY]           = useState(0)
-  // 是否正在 Hero 區域（300vh）—— 決定文字要顯示白色
-  const [onHero, setOnHero]         = useState(true)
 
   useEffect(() => {
     const handleScroll = () => {
       const y = window.scrollY
-      const vh = window.innerHeight
-
-      setScrolled(y > 50)
-      // Hero 佔 300vh，在這段範圍內文字保持白色
-      setOnHero(y < vh * 2.5)
-      // 向下滾且超過 200px 時收起；向上時顯示
+      setScrolled(y > 10)
       if (y > lastY && y > 200) {
         setCollapsed(true)
       } else {
@@ -54,41 +47,31 @@ export default function Header() {
     scrollToSection(id)
   }
 
-  // ── 動態 class 邏輯 ───────────────────────────────────
-  // 在 Hero 頂部：透明背景 + 白色文字
-  // 滾動後：matte-glass（霧面玻璃）+ 深色文字
-  const navTextClass   = onHero ? 'text-white/90 hover:text-white' : 'text-gray-700 hover:text-primary'
-  const logoTextClass  = onHero ? 'text-white/90' : 'text-gray-800'
-  const menuIconClass  = onHero ? 'text-white/90' : 'text-gray-700'
-  const containerClass = onHero && !scrolled
-    ? 'bg-transparent border-transparent shadow-none'
-    : 'matte-glass shadow-lg shadow-black/10'
-
   return (
     <>
       <header
-        className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        className={`fixed top-0 w-full z-50 transition-all duration-400 ${
           collapsed ? '-translate-y-[calc(100%+4px)]' : 'translate-y-0'
         }`}
       >
         <div className="mx-3 mt-3 md:mx-auto md:max-w-6xl">
           <div
-            className={`rounded-2xl transition-all duration-300 ${containerClass}`}
+            className={`bg-white rounded-2xl transition-shadow duration-300 ${
+              scrolled ? 'shadow-lg shadow-black/8' : 'shadow-md shadow-black/5'
+            }`}
           >
             <div className="px-5 h-16 flex items-center justify-between">
               {/* Logo */}
               <button
                 onClick={() => scrollToSection('hero')}
-                className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                className="flex items-center gap-3 hover:opacity-75 transition-opacity"
               >
                 <img
                   src="/aiclubusrwebsite/logo.jpg"
                   alt="艋舺ESG競賽"
-                  className={`h-10 w-10 rounded-full object-cover transition-all duration-300 ${
-                    onHero ? 'ring-2 ring-white/30' : ''
-                  }`}
+                  className="h-9 w-9 rounded-full object-cover"
                 />
-                <span className={`hidden sm:block text-sm font-medium tracking-wide transition-colors duration-300 ${logoTextClass}`}>
+                <span className="hidden sm:block text-sm font-bold text-gray-800 tracking-wide">
                   艋舺ESG競賽
                 </span>
               </button>
@@ -99,18 +82,17 @@ export default function Header() {
                   <button
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
-                    className={`px-3 py-2 text-sm font-light transition-all duration-300 rounded-xl tracking-wide
-                      ${onHero
-                        ? 'text-white/85 hover:text-white hover:bg-white/10'
-                        : 'text-gray-700 hover:text-primary hover:bg-primary/5'
-                      }`}
+                    className="px-3 py-2 text-sm font-semibold text-gray-600 hover:text-primary
+                               transition-colors rounded-xl hover:bg-primary/6 tracking-wide"
                   >
                     {item.label}
                   </button>
                 ))}
                 <button
                   onClick={() => handleNavClick('timeline')}
-                  className="ml-2 px-5 py-2 bg-primary text-white text-sm font-medium rounded-xl hover:bg-primary-dark transition-all hover:scale-105 shadow-sm shadow-primary/30"
+                  className="ml-2 px-5 py-2.5 bg-primary text-white text-sm font-bold rounded-xl
+                             hover:bg-primary-dark transition-all hover:scale-105
+                             shadow-sm shadow-primary/30 tracking-wide"
                 >
                   立即報名
                 </button>
@@ -119,10 +101,10 @@ export default function Header() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setMobileOpen(true)}
-                className={`lg:hidden p-2 transition-colors duration-300 ${menuIconClass}`}
+                className="lg:hidden p-2 text-gray-700 hover:text-gray-900 transition-colors"
                 aria-label="開啟選單"
               >
-                <Menu className="w-6 h-6" />
+                <Menu className="w-5 h-5" />
               </button>
             </div>
           </div>
@@ -140,13 +122,13 @@ export default function Header() {
           onClick={() => setMobileOpen(false)}
         />
         <div
-          className={`absolute inset-3 bg-white/96 backdrop-blur-xl rounded-3xl shadow-2xl transition-all duration-300 overflow-auto ${
+          className={`absolute inset-3 bg-white rounded-3xl shadow-2xl transition-all duration-300 overflow-auto ${
             mobileOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
           }`}
         >
           <button
             onClick={() => setMobileOpen(false)}
-            className="absolute top-5 right-5 p-2 text-gray-500 hover:text-gray-900 z-10"
+            className="absolute top-5 right-5 p-2 text-gray-400 hover:text-gray-900 z-10"
           >
             <X className="w-6 h-6" />
           </button>
@@ -159,7 +141,7 @@ export default function Header() {
                 className="w-20 h-20 rounded-full object-cover shadow-lg"
               />
             </div>
-            <p className="text-center text-sm text-gray-400 mb-8 tracking-widest uppercase">
+            <p className="text-center text-xs text-gray-400 mb-8 tracking-[0.3em] uppercase font-semibold">
               2026 艋舺商圈 ESG 永續消費競賽
             </p>
             <nav className="space-y-2">
@@ -167,14 +149,15 @@ export default function Header() {
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.isButton ? 'timeline' : item.id)}
-                  className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl text-left transition-all active:scale-[0.98] ${
+                  className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl
+                              text-left transition-all active:scale-[0.98] ${
                     item.isButton
-                      ? 'bg-primary text-white hover:bg-primary-dark font-medium'
-                      : 'text-gray-800 hover:bg-gray-100'
+                      ? 'bg-primary text-white hover:bg-primary-dark font-black'
+                      : 'text-gray-800 hover:bg-gray-100 font-semibold'
                   }`}
                 >
-                  <span className="text-lg font-normal">{item.label}</span>
-                  <span className="text-gray-300">›</span>
+                  <span className="text-lg">{item.label}</span>
+                  <span className="text-gray-300 font-light">›</span>
                 </button>
               ))}
             </nav>
