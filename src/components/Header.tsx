@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 
 const NAV_ITEMS = [
-  { label: '首頁', id: 'hero' },
+  { label: '首頁',     id: 'hero' },
   { label: '活動介紹', id: 'about' },
   { label: '競賽主題', id: 'theme' },
+  { label: '獎金資訊', id: 'prizes' },
   { label: '合作店家', id: 'stores' },
-  { label: '競賽辦法', id: 'rules' },
-  { label: '時程表', id: 'timeline' },
+  { label: '增能工作坊', id: 'workshop' },
+  { label: '時程表',   id: 'timeline' },
   { label: '立即報名', id: 'register', isButton: true },
 ]
 
@@ -88,14 +89,16 @@ export default function Header() {
                     {item.label}
                   </button>
                 ))}
-                <button
-                  onClick={() => handleNavClick('timeline')}
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSe0_Jry0jSMZXgxY_g9apOG52u-GoWVuzyz3V_uZ7-_oyy9hw/viewform?usp=publish-editor"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="ml-2 px-5 py-2.5 bg-primary text-white text-sm font-bold rounded-xl
                              hover:bg-primary-dark transition-all hover:scale-105
                              shadow-sm shadow-primary/30 tracking-wide"
                 >
                   立即報名
-                </button>
+                </a>
               </nav>
 
               {/* Mobile Menu Button */}

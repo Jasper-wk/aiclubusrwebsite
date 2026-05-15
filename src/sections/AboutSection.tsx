@@ -86,11 +86,12 @@ export default function AboutSection() {
             </p>
 
             {/* Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-4">
               {[
                 { num: '12', label: '合作店家' },
                 { num: '2–4', label: '參賽人數/隊' },
                 { num: '2萬', label: '最高金獎獎金' },
+                { num: '2', label: '競賽組別' },
               ].map((stat) => (
                 <div key={stat.label} className="text-center p-4 rounded-2xl bg-white shadow-sm border border-gray-100">
                   <p className="text-2xl font-black text-primary">{stat.num}</p>

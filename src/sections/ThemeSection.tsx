@@ -77,12 +77,15 @@ export default function ThemeSection() {
           />
         </div>
 
-        {/* Year axis badges — no emoji */}
+        {/* Year axis badges — 3 separate tags */}
         <div className="flex flex-wrap justify-center gap-3 mb-16 scroll-anim">
-          <span className="px-6 py-3 bg-primary text-white rounded-full font-bold shadow-md shadow-primary/25 tracking-wide">
-            在地飲食文化與青銀友善
+          <span className="px-5 py-2.5 bg-primary text-white rounded-full font-bold shadow-md shadow-primary/25 tracking-wide">
+            在地飲食文化
           </span>
-          <span className="px-6 py-3 bg-secondary text-white rounded-full font-bold shadow-md shadow-secondary/25 tracking-wide">
+          <span className="px-5 py-2.5 bg-amber-500 text-white rounded-full font-bold shadow-md shadow-amber-500/25 tracking-wide">
+            青銀友善
+          </span>
+          <span className="px-5 py-2.5 bg-secondary text-white rounded-full font-bold shadow-md shadow-secondary/25 tracking-wide">
             綠色飲食
           </span>
         </div>
@@ -120,9 +123,9 @@ export default function ThemeSection() {
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
             <div className="relative">
               <p className="text-white/50 text-xs tracking-[0.3em] uppercase font-semibold mb-3">企劃方向</p>
-              <h3 className="text-xl font-black mb-3">可多選方向</h3>
+              <h3 className="text-xl font-black mb-3">可針對單一主題，或結合多項元素</h3>
               <p className="text-white/65 text-sm font-medium leading-relaxed">
-                參賽隊伍可針對以上方向自由組合，提出具創意、可行性與 ESG 理念整合的具體方案。
+                參賽隊伍可聚焦單一方向深入發展，亦可跨主題整合，提出具創意、可行性與 ESG 理念整合的具體方案。
               </p>
             </div>
           </div>

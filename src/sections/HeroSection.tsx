@@ -6,6 +6,9 @@ import { useBackgroundSlider } from '../hooks/useBackgroundSlider'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const COMPETITION_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLSe0_Jry0jSMZXgxY_g9apOG52u-GoWVuzyz3V_uZ7-_oyy9hw/viewform?usp=publish-editor'
+const WORKSHOP_LINK    = 'https://docs.google.com/forms/d/e/1FAIpQLScRj7oLo8hw0mZaUvSKSZssCIQl5dlWntH9i7nRYSGLbpviRA/viewform?usp=publish-editor'
+
 function scrollToSection(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }
@@ -13,12 +16,10 @@ function scrollToSection(id: string) {
 export default function HeroSection() {
   const { images, current } = useBackgroundSlider()
 
-  // Pin target = the full-screen hero panel itself (100vh)
-  // GSAP pin:true handles ALL pinning — no wrapper needed
-  const heroRef = useRef<HTMLElement>(null)
-  const textRef = useRef<HTMLDivElement>(null)
-  const btnRef  = useRef<HTMLDivElement>(null)
-  const logoRef = useRef<HTMLDivElement>(null)
+  const heroRef  = useRef<HTMLElement>(null)
+  const textRef  = useRef<HTMLDivElement>(null)
+  const btnRef   = useRef<HTMLDivElement>(null)
+  const logoRef  = useRef<HTMLDivElement>(null)
   const arrowRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -38,17 +39,8 @@ export default function HeroSection() {
         const { isDesktop, isTablet } = context.conditions as {
           isDesktop: boolean; isTablet: boolean
         }
-
         const scaleAmount = isDesktop ? 3.0 : isTablet ? 2.2 : 1.6
 
-        /*
-         * GSAP pin:true — correct pinned scroll animation approach
-         *
-         * ✅ No wrapper div needed
-         * ✅ No dead scroll zone — GSAP removes pin exactly when animation ends
-         * ✅ pinSpacing:true adds padding automatically so next section flows correctly
-         * ✅ end:'+=100vh' gives exactly 100vh of scroll distance for the animation
-         */
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: hero,
@@ -61,26 +53,14 @@ export default function HeroSection() {
           },
         })
 
-        // 0–15%: UI chrome fades away
         tl.to([logoRef.current, arrowRef.current], {
           opacity: 0, duration: 0.15, ease: 'power2.in',
         }, 0)
         tl.to(btnRef.current, {
           opacity: 0, y: -6, duration: 0.15, ease: 'power2.in',
         }, 0)
-
-        // 10–72%: headline scales up
-        tl.fromTo(
-          text,
-          { scale: 1, opacity: 1 },
-          { scale: scaleAmount, ease: 'none', duration: 0.62 },
-          0.10
-        )
-
-        // 65–100%: headline fades out — overlaps final scale phase
-        tl.to(text, {
-          opacity: 0, ease: 'power1.in', duration: 0.35,
-        }, 0.65)
+        tl.fromTo(text, { scale: 1, opacity: 1 }, { scale: scaleAmount, ease: 'none', duration: 0.62 }, 0.10)
+        tl.to(text, { opacity: 0, ease: 'power1.in', duration: 0.35 }, 0.65)
 
         return () => {
           ScrollTrigger.getAll().forEach(st => st.kill())
@@ -93,11 +73,6 @@ export default function HeroSection() {
   }, [])
 
   return (
-    /*
-     * section IS the pinned element — no wrapper needed.
-     * GSAP will temporarily give it position:fixed and add padding
-     * to the parent to maintain page flow.
-     */
     <section
       id="hero"
       ref={heroRef}
@@ -156,38 +131,48 @@ export default function HeroSection() {
             體驗競賽
           </h1>
 
+          {/* Updated subtitle with dots */}
           <p
             className="hero-text-shadow text-xs sm:text-sm md:text-base text-white/75
                        max-w-sm md:max-w-lg mx-auto font-medium leading-relaxed animate-fade-in-up"
-            style={{ animationDelay: '0.6s', opacity: 0, animationFillMode: 'forwards' }}
+            style={{ animationDelay: '0.55s', opacity: 0, animationFillMode: 'forwards' }}
           >
-            在地飲食文化與青銀友善・綠色飲食
-            <br className="hidden sm:block" />
-            邀請全國大專院校及高中學生共同參與
+            2026年度主題：在地飲食文化・青銀友善・綠色飲食
           </p>
         </div>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons — 3 buttons as per updated plan */}
         <div
           ref={btnRef}
-          className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 items-center animate-fade-in-up"
+          className="mt-7 md:mt-8 flex flex-col sm:flex-row gap-3 items-center animate-fade-in-up"
           style={{ animationDelay: '0.8s', opacity: 0, animationFillMode: 'forwards' }}
         >
           <button
-            onClick={() => scrollToSection('timeline')}
-            className="w-full sm:w-auto px-7 py-3.5 bg-primary text-white font-bold rounded-2xl
-                       hover:bg-primary-dark transition-all hover:scale-105
-                       shadow-lg shadow-primary/40 text-sm md:text-base tracking-wide"
-          >
-            立即報名
-          </button>
-          <button
             onClick={() => scrollToSection('about')}
-            className="w-full sm:w-auto px-7 py-3.5 matte-glass-dark text-white font-medium rounded-2xl
-                       hover:bg-white/12 transition-all hover:scale-105 text-sm md:text-base"
+            className="w-full sm:w-auto px-6 py-3 matte-glass-dark text-white font-medium rounded-2xl
+                       hover:bg-white/12 transition-all hover:scale-105 text-sm"
           >
             了解更多
           </button>
+          <a
+            href={WORKSHOP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto px-6 py-3 bg-white/15 border border-white/30 text-white font-bold rounded-2xl
+                       hover:bg-white/25 transition-all hover:scale-105 text-sm text-center"
+          >
+            報名增能工作坊
+          </a>
+          <a
+            href={COMPETITION_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto px-7 py-3 bg-primary text-white font-bold rounded-2xl
+                       hover:bg-primary-dark transition-all hover:scale-105
+                       shadow-lg shadow-primary/40 text-sm tracking-wide text-center"
+          >
+            立即報名競賽
+          </a>
         </div>
       </div>
 

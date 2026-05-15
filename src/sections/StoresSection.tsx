@@ -269,7 +269,7 @@ export default function StoresSection() {
           </div>
 
           <p className="text-center text-gray-400 text-sm mt-6 scroll-anim font-light">
-            ＊每家店只可由一隊參賽者提案，請提早確認選定店家。
+            ＊各隊可自由選擇個案店家，單一店家可接受多組提案。
           </p>
         </div>
       </section>

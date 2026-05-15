@@ -4,10 +4,12 @@ import Footer from './components/Footer'
 import HeroSection from './sections/HeroSection'
 import AboutSection from './sections/AboutSection'
 import ThemeSection from './sections/ThemeSection'
+import SDGsSection from './sections/SDGsSection'
+import PrizesSection from './sections/PrizesSection'
 import StoresSection from './sections/StoresSection'
 import RulesSection from './sections/RulesSection'
+import WorkshopSection from './sections/WorkshopSection'
 import TimelineSection from './sections/TimelineSection'
-import PrizesSection from './sections/PrizesSection'
 import OrganizersSection from './sections/OrganizersSection'
 import { useScrollAnimation } from './hooks/useScrollAnimation'
 import './index.css'
@@ -15,10 +17,8 @@ import './index.css'
 export default function App() {
   useScrollAnimation()
 
-  // Re-run observer when DOM changes (for sections loaded after initial render)
   useEffect(() => {
     const timer = setTimeout(() => {
-      // Trigger a scroll to re-evaluate visible elements
       window.dispatchEvent(new Event('scroll'))
     }, 300)
     return () => clearTimeout(timer)
@@ -31,10 +31,12 @@ export default function App() {
         <HeroSection />
         <AboutSection />
         <ThemeSection />
+        <SDGsSection />       {/* 新增：SDGs 相關議題 */}
+        <PrizesSection />     {/* 移至 Theme 之後 */}
         <StoresSection />
         <RulesSection />
+        <WorkshopSection />   {/* 新增：增能工作坊 */}
         <TimelineSection />
-        <PrizesSection />
         <OrganizersSection />
       </main>
       <Footer />

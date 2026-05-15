@@ -5,17 +5,20 @@ const ORGANIZERS = [
     type: '指導單位',
     color: 'border-blue-200 bg-blue-50',
     badge: 'bg-blue-100 text-blue-700',
-    orgs: ['臺北市政府產業發展局（邀請中）', '台北市商業處（邀請中）', '台北市萬華街區發展協會'],
+    orgs: [
+      '台北市政府產業發展局',
+      '台北市萬華街區發展協會',
+    ],
   },
   {
     type: '主辦單位',
     color: 'border-primary/20 bg-green-50',
     badge: 'bg-primary/10 text-primary',
     orgs: [
-      '東吳大學商學院',
-      '東吳大USR計畫「艋舺商圈永續共創數位加值」',
-      '東吳大學人本AI研究中心',
       '東吳大學人工智慧應用社',
+      '東吳大學人本AI研究中心',
+      '東吳大學商學院',
+      '東吳大學社會責任實踐計畫「艋舺商圈永續共創與數位加值」',
     ],
   },
   {
@@ -63,14 +66,24 @@ export default function OrganizersSection() {
           ))}
         </div>
 
+        {/* Contact */}
         <div className="mt-16 text-center scroll-anim">
           <div className="inline-block px-8 py-6 rounded-2xl bg-gray-50 border border-gray-100">
             <p className="text-gray-600 text-sm font-semibold">
-              如有任何問題，歡迎聯繫主辦單位東吳大學商學院
+              如有任何問題，歡迎聯繫主辦單位
             </p>
-            <p className="text-primary text-sm font-black mt-2 tracking-wide">
-              東吳大學人工智慧應用社
-            </p>
+            <div className="mt-3 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <span className="text-primary text-sm font-black tracking-wide">
+                東吳大學人工智慧應用社
+              </span>
+              <span className="hidden sm:block text-gray-300">｜</span>
+              <a
+                href="mailto:chunyouko@scu.edu.tw"
+                className="text-primary text-sm font-black tracking-wide hover:underline"
+              >
+                chunyouko@scu.edu.tw（葛老師）
+              </a>
+            </div>
           </div>
         </div>
       </div>
