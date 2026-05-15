@@ -69,20 +69,37 @@ export default function OrganizersSection() {
         {/* Contact */}
         <div className="mt-16 text-center scroll-anim">
           <div className="inline-block px-8 py-6 rounded-2xl bg-gray-50 border border-gray-100">
-            <p className="text-gray-600 text-sm font-semibold">
+            <p className="text-gray-600 text-sm font-semibold mb-4">
               如有任何問題，歡迎聯繫主辦單位
             </p>
-            <div className="mt-3 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <span className="text-primary text-sm font-black tracking-wide">
-                東吳大學人工智慧應用社
-              </span>
-              <span className="hidden sm:block text-gray-300">｜</span>
-              <a
-                href="mailto:chunyouko@scu.edu.tw"
-                className="text-primary text-sm font-black tracking-wide hover:underline"
-              >
-                chunyouko@scu.edu.tw（葛老師）
-              </a>
+            <div className="flex flex-col gap-3">
+              {/* AI Club Contact */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+                <span className="text-gray-800 text-sm font-black tracking-wide">
+                  東吳大學人工智慧應用社
+                </span>
+                <span className="hidden sm:block text-gray-300">｜</span>
+                <a
+                  href="mailto:ai.scu.club@gmail.com"
+                  className="text-primary text-sm font-bold tracking-wide hover:underline"
+                >
+                  ai.scu.club@gmail.com
+                </a>
+              </div>
+              
+              {/* Teacher Contact */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+                <span className="text-gray-800 text-sm font-black tracking-wide">
+                  東吳大學尤努斯社會企業中心 葛俊佑主任
+                </span>
+                <span className="hidden sm:block text-gray-300">｜</span>
+                <a
+                  href="mailto:chunyouko@scu.edu.tw"
+                  className="text-primary text-sm font-bold tracking-wide hover:underline"
+                >
+                  chunyouko@scu.edu.tw
+                </a>
+              </div>
             </div>
           </div>
         </div>
