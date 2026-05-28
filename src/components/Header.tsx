@@ -54,17 +54,19 @@ export default function Header() {
               {/* Logo */}
               <button
                 onClick={() => scrollToSection('hero')}
-                className="flex items-center gap-3 hover:opacity-75 transition-opacity"
+                className="flex items-center gap-2.5 hover:opacity-75 transition-opacity"
               >
                 <img
                   src="/aiclubusrwebsite/logo.jpg"
                   alt="永續消費體驗企劃書提案競賽"
-                  className="h-12 w-12 rounded-full object-cover border border-gray-100"
+                  className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover border border-gray-100 shrink-0"
                 />
-                <span className="hidden md:block text-base font-bold text-gray-800 tracking-wide" style={{ fontFamily: 'var(--f-serif)' }}>
-                  艋舺ESG競賽
+                <span className="flex flex-col leading-tight" style={{ fontFamily: 'var(--f-serif)' }}>
+                  <span className="text-[0.65rem] font-bold text-gray-500 tracking-wider hidden sm:block">2026 艋舺ESG競賽</span>
+                  <span className="text-sm md:text-base font-bold text-gray-800 tracking-wide">艋舺永續消費體驗<br className="md:hidden" /><span className="hidden md:inline"> </span>企劃書提案競賽</span>
                 </span>
               </button>
+
 
               {/* Desktop Nav */}
               <nav className="hidden lg:flex items-center gap-1.5">
