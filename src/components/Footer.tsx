@@ -39,7 +39,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="mt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-          <p>© 2026 東吳大學商學院 · 人本AI研究中心 · All rights reserved.</p>
+          <p>© 2026 東吳大學人本AI研究中心　All rights reserved.</p>
           <div className="flex gap-6">
             <span>主辦：東吳大學商學院</span>
             <span>指導：台北市萬華街區發展協會</span>

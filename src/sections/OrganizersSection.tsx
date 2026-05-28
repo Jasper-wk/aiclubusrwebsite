@@ -21,6 +21,15 @@ const ORGANIZERS = [
       '東吳大學社會責任實踐計畫「艋舺商圈永續共創與數位加值」',
     ],
   },
+  {
+    type: '協辦單位',
+    color: 'border-secondary/20 bg-orange-50',
+    badge: 'bg-secondary/10 text-secondary',
+    orgs: [
+      '東吳大學ESG永續發展研究中心',
+      '東吳大學尤努斯社會企業中心',
+    ],
+  },
 ]
 
 export default function OrganizersSection() {
@@ -32,17 +41,17 @@ export default function OrganizersSection() {
             06 / 主辦單位
           </div>
           <AnimatedTitle
-            text="主辦與指導單位"
-            highlight="指導單位"
+            text="指導、主辦與協辦單位"
+            highlight="協辦單位"
             highlightClass="text-primary"
             className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight"
           />
           <p className="mt-6 text-gray-500 max-w-xl mx-auto scroll-anim font-medium">
-            感謝各單位的支持與指導，共同推動艋舺商圈永續發展
+            感謝各單位的支持與協助，共同推動艋舺商圈永續發展
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-3 gap-6">
           {ORGANIZERS.map((org, i) => (
             <div key={org.type} className={`scroll-anim stagger-${i+1} p-7 rounded-3xl border-2 ${org.color}`}>
               <span className={`inline-block text-xs font-bold px-3 py-1.5 rounded-full mb-5 tracking-[0.2em] uppercase ${org.badge}`}>
@@ -83,7 +92,13 @@ export default function OrganizersSection() {
             </div>
           </div>
         </div>
+
+        {/* Copyright */}
+        <p className="mt-10 text-center text-xs text-gray-400 font-medium">
+          © 2026 東吳大學人本AI研究中心　All rights reserved.
+        </p>
       </div>
     </section>
   )
 }
+

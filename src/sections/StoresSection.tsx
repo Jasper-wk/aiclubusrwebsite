@@ -9,15 +9,12 @@ const PLACEHOLDER = '/aiclubusrwebsite/images/placeholder-store.jpg'
 function PhotoCarousel({ photos, name }: { photos: string[]; name: string }) {
   const [idx, setIdx] = useState(0)
 
-  // 如果沒有照片，直接顯示單張 placeholder
+  // 如果沒有照片，顯示「準備中敬請期待」純素色底
   if (!photos || photos.length === 0) {
     return (
-      <div className="relative w-full aspect-video bg-gray-100 rounded-2xl overflow-hidden select-none">
-        <img
-          src={PLACEHOLDER}
-          alt={`${name} 暫無照片`}
-          className="w-full h-full object-cover"
-        />
+      <div className="relative w-full aspect-video bg-gray-100 rounded-2xl overflow-hidden select-none flex flex-col items-center justify-center gap-2">
+        <div className="text-3xl opacity-30">🏪</div>
+        <p className="text-xs text-gray-400 font-bold tracking-wider text-center px-4">（準備中敬請期待）</p>
       </div>
     )
   }

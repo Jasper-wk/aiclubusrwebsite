@@ -6,7 +6,7 @@ import { useBackgroundSlider } from '../hooks/useBackgroundSlider'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const DOWNLOAD_PDF_LINK = '#'
+const DOWNLOAD_PDF_LINK = '/aiclubusrwebsite/簡章.pdf'
 const LEAVE_INFO_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLScRj7oLo8hw0mZaUvSKSZssCIQl5dlWntH9i7nRYSGLbpviRA/viewform?usp=header'
 const REGISTRATION_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLSe0_Jry0jSMZXgxY_g9apOG52u-GoWVuzyz3V_uZ7-_oyy9hw/viewform?usp=publish-editor'
 
@@ -136,13 +136,13 @@ export default function HeroSection() {
                        text-white tracking-tight leading-[1.15] mb-3 animate-fade-in-up"
             style={{ animationDelay: '0.4s', opacity: 0, animationFillMode: 'forwards', fontFamily: 'var(--f-serif)' }}
           >
-            艋舺永續消費
+            艋舺永續消費體驗
             <br />
             <span className="font-bold bg-gradient-to-r from-emerald-300 to-green-400 bg-clip-text text-transparent">
-              體驗企劃書
+              企劃書提案
             </span>
             <br />
-            提案競賽
+            競賽
           </h1>
 
           <p
@@ -179,7 +179,7 @@ export default function HeroSection() {
                        hover:bg-emerald-600 transition-all hover:scale-105
                        shadow-lg shadow-emerald-500/30 text-sm tracking-wide text-center"
           >
-            留下資料
+            留下資料－即時取得最新資訊
           </a>
 
           {/* 立即報名 */}
@@ -191,7 +191,7 @@ export default function HeroSection() {
                        hover:bg-primary-dark transition-all hover:scale-105
                        shadow-lg shadow-primary/40 text-sm tracking-wide text-center"
           >
-            立即報名
+            遞件報名
           </a>
         </div>
       </div>

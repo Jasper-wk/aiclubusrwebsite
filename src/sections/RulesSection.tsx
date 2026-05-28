@@ -1,5 +1,4 @@
 import { GraduationCap, ClipboardList, FileText, Mic } from 'lucide-react'
-import AnimatedTitle from '../components/AnimatedTitle'
 
 const SCORES = [
   { label: '企劃書架構完整性', desc: '問題、目標、策略、執行與基本分析', pct: 20, color: 'bg-blue-500' },
@@ -12,20 +11,16 @@ export default function RulesSection() {
   return (
     <section id="rules" className="py-20 md:py-32 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-20">
-          <div className="section-label text-primary/60 text-xs tracking-[0.15em] scroll-anim mb-4">
-            05 / 競賽辦法
-          </div>
-          <AnimatedTitle
-            text="競賽辦法"
-            highlight="辦法"
-            highlightClass="text-primary"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight"
-          />
-          <p className="mt-6 text-gray-500 max-w-xl mx-auto scroll-anim font-medium">
-            了解參賽資格、競賽流程與評分標準
-          </p>
+
+        {/* 副標題 */}
+        <div className="flex items-center gap-3 mb-12 scroll-anim">
+          <div className="h-px flex-1 bg-gray-200" />
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight px-2" style={{ fontFamily: 'var(--f-serif)' }}>
+            競賽辦法
+          </h2>
+          <div className="h-px flex-1 bg-gray-200" />
         </div>
+
 
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="scroll-anim-left p-8 rounded-3xl bg-primary/5 border border-primary/15">
@@ -60,8 +55,14 @@ export default function RulesSection() {
           </div>
         </div>
 
+        <div className="flex items-center gap-3 mb-8 mt-20 scroll-anim">
+          <div className="h-px flex-1 bg-gray-200" />
+          <h3 className="text-xl md:text-2xl font-bold text-gray-800 tracking-tight px-2" style={{ fontFamily: 'var(--f-serif)' }}>
+            競賽流程
+          </h3>
+          <div className="h-px flex-1 bg-gray-200" />
+        </div>
         <div className="space-y-6 mb-20">
-          <h3 className="text-2xl font-black text-gray-800 text-center mb-10 scroll-anim">競賽流程</h3>
           {[
             { phase: '初賽', type: '書面審查', Icon: FileText, badge: 'bg-blue-500', color: 'border-blue-300 bg-blue-50',
               items: ['繳交企劃書（A4 10–15頁，含市場分析、提案與ESG關聯性、經濟效益評估等）','完整繳交者，每位隊員及指導老師皆提供參賽證明','選出若干隊伍進入決賽'] },
@@ -87,6 +88,7 @@ export default function RulesSection() {
             </div>
           ))}
         </div>
+
 
         <div className="scroll-anim p-8 rounded-3xl bg-gray-950 text-white">
           <h3 className="text-xl font-black mb-8 text-center tracking-wide">評分標準</h3>

@@ -21,6 +21,14 @@ const ESG_PILLARS = [
   },
 ]
 
+const THEME_ITEMS = [
+  { title: '高齡者友善飲食設計', desc: '如軟質餐食、營養規劃、無障礙動線' },
+  { title: '青年族群品牌再造', desc: '如聚會餐飲、紓壓或健身飲食' },
+  { title: '健康與永續食材應用', desc: '如在地小農、低碳飲食、惜食行動、青銀共好餐飲' },
+  { title: 'AI 與數據分析導入', desc: '如顧客數據分析、需求分群、數位轉型工具應用' },
+  { title: 'ESG 行動方案與數位行銷策略', desc: '商圈 ESG 策略規劃結合數位行銷' },
+]
+
 export default function AboutSection() {
   return (
     <section id="about" className="py-20 md:py-32 px-4 bg-bg-warm">
@@ -29,11 +37,11 @@ export default function AboutSection() {
         {/* Header */}
         <div className="text-center mb-20">
           <div className="section-label text-primary/60 text-xs tracking-[0.15em] scroll-anim mb-4">
-            01 / 活動緣起
+            01 / 活動介紹
           </div>
           <AnimatedTitle
-            text="活動緣起"
-            highlight="緣起"
+            text="活動介紹"
+            highlight="介紹"
             highlightClass="text-primary"
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight"
           />
@@ -73,34 +81,42 @@ export default function AboutSection() {
             </p>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-4">
+            <div className="grid grid-cols-2 gap-3 pt-4">
               {[
-                { num: '12', label: '合作店家' },
+                { topLabel: '高中職組', bottomLabel: '大專院校組', icon: '🏫' },
                 { num: '2–4', label: '參賽人數/隊' },
-                { num: '2萬', label: '最高金獎獎金' },
-                { num: '2', label: '競賽組別' },
-              ].map((stat) => (
-                <div key={stat.label} className="text-center p-4 rounded-2xl bg-white shadow-sm border border-gray-100">
-                  <p className="text-2xl font-bold text-primary" style={{ fontFamily: 'var(--f-serif)' }}>{stat.num}</p>
-                  <p className="text-xs text-gray-500 mt-1 tracking-wide" style={{ fontFamily: 'var(--f-mono)' }}>{stat.label}</p>
+                { num: '20,000', label: '最高金獎（元）' },
+                { num: '55,000', label: '總獎金（元）' },
+              ].map((stat, i) => (
+                <div key={i} className="text-center p-4 rounded-2xl bg-white shadow-sm border border-gray-100">
+                  {'topLabel' in stat ? (
+                    <>
+                      <p className="text-xs text-gray-500 font-bold tracking-wide" style={{ fontFamily: 'var(--f-mono)' }}>{stat.topLabel}</p>
+                      <p className="text-lg font-bold text-primary my-0.5" style={{ fontFamily: 'var(--f-serif)' }}>|</p>
+                      <p className="text-xs text-gray-500 font-bold tracking-wide" style={{ fontFamily: 'var(--f-mono)' }}>{stat.bottomLabel}</p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-2xl font-bold text-primary" style={{ fontFamily: 'var(--f-serif)' }}>{stat.num}</p>
+                      <p className="text-xs text-gray-500 mt-1 tracking-wide" style={{ fontFamily: 'var(--f-mono)' }}>{stat.label}</p>
+                    </>
+                  )}
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* ESG Pillars — new flat card layout */}
-        <div className="border border-gray-200 flex flex-col divide-y divide-gray-200 rounded-2xl overflow-hidden">
+        {/* ESG Pillars */}
+        <div className="border border-gray-200 flex flex-col divide-y divide-gray-200 rounded-2xl overflow-hidden mb-24">
           {ESG_PILLARS.map((pillar) => (
             <div key={pillar.title} className="flex bg-white card-hover">
-              {/* Color letter block */}
               <div
                 className={`w-12 shrink-0 flex items-center justify-center font-bold text-lg text-white ${pillar.letterBg}`}
                 style={{ fontFamily: 'var(--f-serif)' }}
               >
                 {pillar.letter}
               </div>
-              {/* Text content */}
               <div className="p-5">
                 <h3 className="font-bold text-gray-900 mb-1">{pillar.title}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">{pillar.desc}</p>
@@ -109,7 +125,41 @@ export default function AboutSection() {
           ))}
         </div>
 
+        {/* 競賽主題 sub-section */}
+        <div className="mb-16">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-px flex-1 bg-gray-200" />
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight px-2" style={{ fontFamily: 'var(--f-serif)' }}>
+              競賽主題
+            </h2>
+            <div className="h-px flex-1 bg-gray-200" />
+          </div>
+
+          <p className="text-gray-600 leading-relaxed mb-6 max-w-3xl">
+            每隊參賽者需從「合作店家」名單中挑選一家店作為提案對象，針對該店設計完整行銷企劃案。企劃內容可涵蓋品牌再造、永續飲食、數位轉型、顧客體驗等方向，並提出具創意、可行性與ESG理念整合的具體方案，以書面企劃與簡報方式呈現。
+          </p>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {THEME_ITEMS.map((theme, i) => (
+              <div key={i} className="p-5 rounded-2xl bg-white border border-gray-100 shadow-sm card-hover">
+                <p className="text-xs text-primary/60 font-bold tracking-[0.2em] mb-1" style={{ fontFamily: 'var(--f-mono)' }}>
+                  {String(i + 1).padStart(2, '0')}
+                </p>
+                <h3 className="font-bold text-gray-800 mb-2" style={{ fontFamily: 'var(--f-serif)' }}>{theme.title}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{theme.desc}</p>
+              </div>
+            ))}
+            {/* Last: 企劃方向說明 */}
+            <div className="p-5 rounded-2xl border border-primary/20 bg-primary/5 card-hover flex flex-col justify-center">
+              <p className="text-xs text-primary font-bold tracking-[0.2em] mb-1" style={{ fontFamily: 'var(--f-mono)' }}>DIRECTION</p>
+              <h3 className="font-bold text-gray-800 mb-2" style={{ fontFamily: 'var(--f-serif)' }}>可針對單一主題或結合多項元素</h3>
+              <p className="text-sm text-gray-500 leading-relaxed">參賽隊伍可聚焦單一方向深入發展，亦可跨主題整合提案。</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   )
 }
+

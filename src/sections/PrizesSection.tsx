@@ -4,11 +4,11 @@ const PRIZE_TIERS = [
   { rank: '金獎', rankEn: 'GOLD',   quota: '1名', dot: 'bg-yellow-400', border: 'border-yellow-500/40', glow: 'shadow-yellow-500/20' },
   { rank: '銀獎', rankEn: 'SILVER', quota: '1名', dot: 'bg-gray-400',   border: 'border-gray-400/40',   glow: 'shadow-gray-400/20'  },
   { rank: '銅獎', rankEn: 'BRONZE', quota: '1名', dot: 'bg-amber-600',  border: 'border-amber-600/40',  glow: 'shadow-amber-600/20' },
-  { rank: '佳作', rankEn: 'MERIT',  quota: '3名', dot: 'bg-white/30',   border: 'border-white/20',       glow: '' },
+  { rank: '佳作', rankEn: 'MERIT',  quota: '2名', dot: 'bg-white/30',   border: 'border-white/20',       glow: '' },
 ]
 
-const UNI_AMOUNTS   = ['20,000', '10,000', '6,000', '3,000']
-const HS_AMOUNTS    = ['10,000', '6,000',  '3,000', '1,000']
+const UNI_AMOUNTS   = ['20,000', '8,000', '3,000', '2,000']
+const HS_AMOUNTS    = ['10,000', '5,000', '3,000', '1,000']
 
 export default function PrizesSection() {
   return (
@@ -29,7 +29,7 @@ export default function PrizesSection() {
           {/* Highlight badges */}
           <div className="flex flex-wrap justify-center gap-3.5 mt-8 mb-6 scroll-anim">
             <span className="px-4.5 py-2.5 rounded-2xl bg-white/10 text-accent border border-accent/30 text-sm font-bold shadow-lg shadow-accent/5">
-              🏆 總獎金 NT$ 67,000 元
+              🏆 總獎金 NT$ 55,000 元
             </span>
             <span className="px-4.5 py-2.5 rounded-2xl bg-white/10 text-white border border-white/10 text-sm font-bold">
               👥 參賽人數 2-4 人 / 隊

@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react'
 import { Menu, X, FileDown } from 'lucide-react'
 
-const DOWNLOAD_PDF_LINK = '#'
+const DOWNLOAD_PDF_LINK = '/aiclubusrwebsite/簡章.pdf'
 const LEAVE_INFO_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLScRj7oLo8hw0mZaUvSKSZssCIQl5dlWntH9i7nRYSGLbpviRA/viewform?usp=header'
 const REGISTRATION_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLSe0_Jry0jSMZXgxY_g9apOG52u-GoWVuzyz3V_uZ7-_oyy9hw/viewform?usp=publish-editor'
 
 const NAV_ITEMS = [
   { label: '首頁',     id: 'hero' },
   { label: '活動介紹', id: 'about' },
-  { label: '競賽主題', id: 'theme' },
   { label: '獎金資訊', id: 'prizes' },
   { label: '合作店家', id: 'stores' },
   { label: '增能工作坊', id: 'workshop' },
-  { label: '時程表',   id: 'timeline' },
+  { label: '競賽流程',   id: 'timeline' },
 ]
 
 function scrollToSection(id: string) {
@@ -96,7 +95,7 @@ export default function Header() {
                   rel="noopener noreferrer"
                   className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-base font-bold rounded-xl transition-all hover:scale-105 shadow-sm shadow-emerald-500/20 tracking-wide"
                 >
-                  留下資料
+                  留下資料－即時取得最新資訊
                 </a>
 
                 {/* 立即報名 */}
@@ -106,7 +105,7 @@ export default function Header() {
                   rel="noopener noreferrer"
                   className="px-4 py-2 bg-primary text-white text-base font-bold rounded-xl hover:bg-primary-dark transition-all hover:scale-105 shadow-sm shadow-primary/20 tracking-wide"
                 >
-                  立即報名
+                  遞件報名
                 </a>
               </nav>
 
@@ -192,7 +191,7 @@ export default function Header() {
                            flex items-center justify-center gap-2 hover:bg-emerald-600 transition-all text-base
                            shadow-md shadow-emerald-500/10 text-center"
               >
-                留下資料
+                留下資料－即時取得最新資訊
               </a>
 
               {/* 立即報名 */}
@@ -204,7 +203,7 @@ export default function Header() {
                            flex items-center justify-center gap-2 hover:bg-primary-dark transition-all text-base
                            shadow-md shadow-primary/10 text-center"
               >
-                立即報名
+                遞件報名
               </a>
             </div>
           </div>
