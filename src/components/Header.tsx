@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { label: '獎金資訊', id: 'prizes' },
   { label: '合作店家', id: 'stores' },
   { label: '增能工作坊', id: 'workshop' },
-  { label: '重要時程',   id: 'timeline' },
+  { label: '競賽流程',   id: 'timeline' },
 ]
 
 function scrollToSection(id: string) {
