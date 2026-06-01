@@ -63,7 +63,7 @@ export default function Header() {
                 />
                 <span className="flex flex-col leading-tight text-left" style={{ fontFamily: 'var(--f-serif)' }}>
                   <span className="text-xs md:text-sm font-bold text-gray-800 tracking-wide">艋舺永續消費體驗</span>
-                  <span className="text-[0.75rem] md:text-xs font-semibold text-gray-500 tracking-wide">企劃書提案競賽</span>
+                  <span className="text-xs md:text-sm font-bold text-gray-800 tracking-wide">企劃書提案競賽</span>
                 </span>
               </button>
 
