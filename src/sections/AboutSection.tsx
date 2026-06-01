@@ -126,6 +126,14 @@ export default function AboutSection() {
 
         {/* 競賽主題 sub-section */}
         <div className="mb-16">
+          <div className="flex items-center gap-3 mb-10 mt-16 scroll-anim">
+            <div className="h-px flex-1 bg-gray-200" />
+            <h3 className="text-xl md:text-2xl font-bold text-gray-800 tracking-tight px-2" style={{ fontFamily: 'var(--f-serif)' }}>
+              競賽主題
+            </h3>
+            <div className="h-px flex-1 bg-gray-200" />
+          </div>
+
           <p className="text-gray-600 leading-relaxed mb-6 max-w-3xl text-center mx-auto">
             每隊參賽者需從「合作店家」名單中挑選一家店作為提案對象，針對該店設計完整行銷企劃案。企劃內容可涵蓋品牌再造、永續飲食、數位轉型、顧客體驗等方向，並提出具創意、可行性與ESG理念整合的具體方案，以書面企劃與簡報方式呈現。
           </p>

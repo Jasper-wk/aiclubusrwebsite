@@ -3,7 +3,6 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import HeroSection from './sections/HeroSection'
 import AboutSection from './sections/AboutSection'
-import ThemeSection from './sections/ThemeSection'
 import SDGsSection from './sections/SDGsSection'
 import PrizesSection from './sections/PrizesSection'
 import StoresSection from './sections/StoresSection'
@@ -31,7 +30,6 @@ export default function App() {
         <HeroSection />
         <AboutSection />
         <RulesSection />
-        <ThemeSection />
         <SDGsSection />       {/* 新增：SDGs 相關議題 */}
         <PrizesSection />     {/* 移至 Theme 之後 */}
         <StoresSection />
