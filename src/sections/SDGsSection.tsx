@@ -24,7 +24,7 @@ export default function SDGsSection() {
             Sustainable Development Goals
           </div>
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight" style={{ fontFamily: 'var(--f-serif)' }}>
-            相關議題
+            聯合國永續發展目標
           </h2>
           <p className="mt-5 text-gray-500 max-w-2xl mx-auto scroll-anim font-medium leading-relaxed">
             亦鼓勵參賽隊伍將提案方向與

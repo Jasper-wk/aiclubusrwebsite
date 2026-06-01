@@ -30,7 +30,7 @@ export default function App() {
         <HeroSection />
         <AboutSection />
         <RulesSection />
-        <SDGsSection />       {/* 新增：SDGs 相關議題 */}
+        <SDGsSection />       {/* 新增：聯合國永續發展目標 (SDGs) */}
         <PrizesSection />     {/* 移至 Theme 之後 */}
         <StoresSection />
         <WorkshopSection />   {/* 新增：增能工作坊 */}
