@@ -10,6 +10,7 @@ import StoresSection from './sections/StoresSection'
 import RulesSection from './sections/RulesSection'
 import WorkshopSection from './sections/WorkshopSection'
 import TimelineSection from './sections/TimelineSection'
+import OrganizersSection from './sections/OrganizersSection'
 import { useScrollAnimation } from './hooks/useScrollAnimation'
 import './index.css'
 
@@ -36,6 +37,7 @@ export default function App() {
         <StoresSection />
         <WorkshopSection />   {/* 新增：增能工作坊 */}
         <TimelineSection />
+        <OrganizersSection />
       </main>
       <Footer />
     </div>
