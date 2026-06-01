@@ -9,12 +9,11 @@ const PLACEHOLDER = '/aiclubusrwebsite/images/placeholder-store.jpg'
 function PhotoCarousel({ photos, name }: { photos: string[]; name: string }) {
   const [idx, setIdx] = useState(0)
 
-  // 如果沒有照片，顯示「準備中敬請期待」純素色底
+  // 如果沒有照片，顯示「準備中」純素色底
   if (!photos || photos.length === 0) {
     return (
       <div className="relative w-full aspect-video bg-gray-100 rounded-2xl overflow-hidden select-none flex flex-col items-center justify-center gap-2">
-        <div className="text-3xl opacity-30">🏪</div>
-        <p className="text-xs text-gray-400 font-bold tracking-wider text-center px-4">（準備中敬請期待）</p>
+        <span className="text-sm font-semibold tracking-widest text-gray-400">準備中</span>
       </div>
     )
   }
@@ -204,12 +203,18 @@ function StoreCard({ store, index, onClick }: { store: Store; index: number; onC
     >
       {/* 縮圖 */}
       <div className="relative aspect-video bg-gray-100 overflow-hidden">
-        <img
-          src={store.photos[0] || PLACEHOLDER}
-          alt={store.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER }}
-        />
+        {store.photos && store.photos.length > 0 ? (
+          <img
+            src={store.photos[0]}
+            alt={store.name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER }}
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-100/90 flex flex-col items-center justify-center select-none">
+            <span className="text-sm font-semibold tracking-widest text-gray-400">準備中</span>
+          </div>
+        )}
         {/* Logo 角標 */}
         <div className="absolute bottom-2 left-2 w-9 h-9 rounded-xl overflow-hidden
                         border-2 border-white shadow-md bg-white">
