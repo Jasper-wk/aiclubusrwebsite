@@ -52,18 +52,18 @@ export default function AboutSection() {
 
         {/* Main Content */}
         <div className="grid md:grid-cols-2 gap-14 items-center mb-24">
-          {/* Left: image */}
+          {/* Left: image replaced with clean theme gradient & iconography */}
           <div className="scroll-anim">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3]">
-              <img
-                src="/aiclubusrwebsite/images/hero-1.jpg"
-                alt="萬華商圈"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              <div className="absolute bottom-6 left-6 text-white">
-                <p className="text-xs tracking-[0.25em] opacity-70 uppercase" style={{ fontFamily: 'var(--f-mono)' }}>Wanhua District</p>
-                <p className="text-2xl font-bold mt-1" style={{ fontFamily: 'var(--f-serif)' }}>萬華・艋舺</p>
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] bg-gradient-to-br from-emerald-900 to-zinc-950 flex flex-col items-center justify-center p-8 select-none">
+              {/* Subtle decorative glow */}
+              <div className="absolute -inset-10 bg-emerald-400/5 blur-2xl rounded-full" />
+              
+              {/* Center icon */}
+              <div className="relative text-6xl mb-4 animate-pulse opacity-85">🌱</div>
+              
+              <div className="relative text-center">
+                <p className="text-xs tracking-[0.25em] text-emerald-400/70 font-medium uppercase mb-1" style={{ fontFamily: 'var(--f-mono)' }}>Wanhua District</p>
+                <p className="text-2xl font-bold text-white tracking-wide" style={{ fontFamily: 'var(--f-serif)' }}>萬華・艋舺</p>
               </div>
             </div>
           </div>

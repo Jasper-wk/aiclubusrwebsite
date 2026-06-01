@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 import { ChevronDown, FileDown } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useBackgroundSlider } from '../hooks/useBackgroundSlider'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,7 +14,6 @@ function scrollToSection(id: string) {
 }
 
 export default function HeroSection() {
-  const { images, current } = useBackgroundSlider()
 
   const heroRef  = useRef<HTMLElement>(null)
   const textRef  = useRef<HTMLDivElement>(null)
@@ -64,9 +62,9 @@ export default function HeroSection() {
           opacity: 0, y: -6, duration: 0.15, ease: 'power2.in',
         }, 0)
 
-        // Background parallax: bg slightly shrinks as text stays
-        tl.to('.hero-bg-slide.active', {
-          scale: 0.97, ease: 'none', duration: 0.62,
+        // Background parallax: subtle container adjust
+        tl.to('.hero-bg-solid', {
+          scale: 0.98, ease: 'none', duration: 0.62,
         }, 0)
 
         // Text scales up subtly
@@ -92,17 +90,12 @@ export default function HeroSection() {
       className="relative w-full overflow-hidden"
       style={{ height: '100vh' }}
     >
-      {/* Background — lighter overlay */}
-      <div className="absolute inset-0 z-0">
-        {images.map((src, i) => (
-          <div
-            key={src}
-            className={`hero-bg-slide ${i === current ? 'active' : 'inactive'}`}
-            style={{ backgroundImage: `url(${src})` }}
-          />
-        ))}
-        {/* Updated gradient: from-black/30 via-black/18 to-black/50 */}
-        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/30 via-black/18 to-black/50" />
+      {/* Background — solid dark premium gradient with subtle glows */}
+      <div className="absolute inset-0 z-0 bg-zinc-950 overflow-hidden hero-bg-solid">
+        {/* Subtle decorative glow circles */}
+        <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-emerald-500/10 blur-[100px]" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-primary/5 blur-[120px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
       </div>
 
       {/* Content */}
@@ -207,17 +200,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Slide dots */}
-      <div className="absolute bottom-6 md:bottom-8 right-5 md:right-8 flex gap-1.5 z-10">
-        {images.map((_, i) => (
-          <div
-            key={i}
-            className={`h-1 rounded-full transition-all duration-500 ${
-              i === current ? 'w-5 bg-white' : 'w-1.5 bg-white/25'
-            }`}
-          />
-        ))}
-      </div>
+      {/* Background is static solid, slide dots removed */}
     </section>
   )
 }
