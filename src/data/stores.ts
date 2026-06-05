@@ -77,7 +77,7 @@ export const STORES_DATA: Store[] = [
       '二和珍傳統餅鋪是萬華地區知名的傳統漢餅老舖，傳承數代的手工技藝，以純天然食材製作各式傳統糕餅。舉凡囍餅、鳳梨酥、綠豆糕等皆為拿手品項，是許多萬華家庭辦理婚喪喜慶的首選，也是延續在地飲食文化記憶的重要場所。',
     address: '台北市萬華區康定路308號',
     specialties: ['傳統漢餅', '手工鳳梨酥', '綠豆糕', '喜餅禮盒', '中秋月餅'],
-    logo: storeLogo('erhe'),
+    logo: `${BASE}/erhe/logo.webp`,
     photos: storePhotos('erhe', 3),
   },
   {
@@ -90,7 +90,7 @@ export const STORES_DATA: Store[] = [
     address: '台北市萬華區',
     specialties: ['時令蔬食定食', '在地小農沙拉', '友善農業便當', '季節湯品', '低糖養生甜點'],
     logo: storeLogo('yunshui'),
-    photos: storePhotos('yunshui', 5),
+    photos: storePhotos('yunshui', 6),
   },
   {
     id: 'cura',
